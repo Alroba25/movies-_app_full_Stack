@@ -5,7 +5,13 @@ import { Play, Plus } from "lucide-react";
 import { Button } from "./ui/button";
 import { truncateText } from "@/lib/utils";
 
-export default function HeroSlider({ movies }: { movies: any[] }) {
+export default function HeroSlider({
+  movies,
+  type,
+}: {
+  movies: any[];
+  type: "movies" | "series";
+}) {
   const [index, setIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -63,7 +69,9 @@ export default function HeroSlider({ movies }: { movies: any[] }) {
           {/* Title - using text for now, can be an image logo later */}
           <div>
             <h1 className="text-white font-serif font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-3 md:mb-4 drop-shadow-2xl tracking-tight leading-tight">
-              {truncateText(movie.title, 20)}
+              {type === "movies"
+                ? truncateText(movie.title, 20)
+                : truncateText(movie.name, 20)}
             </h1>
             {/* Metadata Row */}
             <div className="flex flex-wrap items-center gap-2 md:gap-3 text-xs sm:text-sm md:text-base text-gray-200 mb-4 md:mb-5 font-serif font-bold tracking-wide drop-shadow-md">
@@ -128,11 +136,22 @@ export default function HeroSlider({ movies }: { movies: any[] }) {
                 `}
                 ref={(el) => {
                   if (el && index === i) {
-                    el.scrollIntoView({
-                      behavior: "smooth",
-                      inline: "center",
-                      block: "nearest",
-                    });
+                    const container = el.parentElement;
+                    if (container) {
+                      const elRect = el.getBoundingClientRect();
+                      const containerRect = container.getBoundingClientRect();
+                      const scrollPosition =
+                        container.scrollLeft +
+                        elRect.left -
+                        containerRect.left -
+                        containerRect.width / 2 +
+                        elRect.width / 2;
+
+                      container.scrollTo({
+                        left: scrollPosition,
+                        behavior: "smooth",
+                      });
+                    }
                   }
                 }}
               >
@@ -144,7 +163,9 @@ export default function HeroSlider({ movies }: { movies: any[] }) {
                         "0px 4px 15px rgba(0,0,0,0.9), 0px 2px 5px rgba(0,0,0,0.7)",
                     }}
                   >
-                    {truncateText(m.title, 8)}
+                    {type === "series"
+                      ? truncateText(m.name, 15)
+                      : truncateText(m.title, 15)}
                   </h3>
                 </div>
                 {/* Red Underline (Active Indicator) */}

@@ -4,7 +4,8 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-export function truncateText(text: string, maxLength: number = 15) {
+export function truncateText(text: string | undefined, maxLength: number = 15) {
+  if (!text) return "";
   if (text.length <= maxLength) {
     return text;
   }
