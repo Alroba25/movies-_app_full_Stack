@@ -8,7 +8,6 @@ export default async function SeriesPage() {
   const series = await getTrendingSeries();
   const top10Series = series.slice(0, 10);
   const arSeries = await getSeriesByCountry("ar");
-  console.log(arSeries);
   const turkeySeries = await getSeriesByCountry("tr");
   const indiaSeries = await getSeriesByCountry("hi");
   return (
