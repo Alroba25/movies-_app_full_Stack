@@ -71,7 +71,7 @@ export default function HeroSlider({
                 ? truncateText(movie.title, 25)
                 : truncateText(movie.name, 25)}
             </h1>
-            
+
             {/* Metadata Row */}
             <div className="flex flex-wrap items-center gap-3 md:gap-4 text-xs sm:text-sm md:text-base text-[#B3B3B3] mb-5 font-sans font-medium tracking-wide drop-shadow-md">
               <span className="text-white px-2 py-0.5 rounded text-[10px] sm:text-xs font-bold tracking-widest bg-[#E50914] shadow-[0_0_15px_rgba(229,9,20,0.5)] uppercase">
@@ -86,13 +86,13 @@ export default function HeroSlider({
               <span className="text-white/20">•</span>
               <span>2h 15m</span>
             </div>
-            
+
             {/* Overview / Description */}
             <p className="text-gray-200 font-sans text-sm sm:text-base md:text-lg mb-6 max-w-xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-relaxed font-light opacity-90">
               {truncateText(movie?.overview, 140) ||
                 "No description available for this movie."}
             </p>
-            
+
             {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-4 mt-auto sm:mt-0 font-sans">
               <Button
@@ -153,21 +153,27 @@ export default function HeroSlider({
               >
                 <div className="w-24 md:w-32 lg:w-44 h-[60px] md:h-[70px] lg:h-[80px] rounded-lg overflow-hidden relative border border-white/10 group-hover:border-[#FFD700]/50 transition-colors">
                   <div className="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition-colors z-10" />
-                  <img src={`https://image.tmdb.org/t/p/w200${m.backdrop_path || m.poster_path}`} alt="thumbnail" className="w-full h-full object-cover" />
-                  
+                  <img
+                    src={`https://image.tmdb.org/t/p/w200${m.backdrop_path || m.poster_path}`}
+                    alt="thumbnail"
+                    className="w-full h-full object-cover"
+                  />
+
                   {/* Thumb title overlay */}
                   <div className="absolute inset-0 flex items-center justify-center z-20 p-2">
-                     <h3
-                        className="text-white font-(family-name:--font-playfair) font-bold text-xs md:text-sm lg:text-base tracking-wide leading-tight text-center"
-                        style={{
-                           textShadow: "0px 2px 8px rgba(0,0,0,0.9)",
-                        }}
-                     >
-                        {type === "series" ? truncateText(m.name, 15) : truncateText(m.title, 15)}
-                     </h3>
+                    <h3
+                      className="text-white font-(family-name:--font-playfair) font-bold text-xs md:text-sm lg:text-base tracking-wide leading-tight text-center"
+                      style={{
+                        textShadow: "0px 2px 8px rgba(0,0,0,0.9)",
+                      }}
+                    >
+                      {type === "series"
+                        ? truncateText(m.name, 15)
+                        : truncateText(m.title, 15)}
+                    </h3>
                   </div>
                 </div>
-                
+
                 {/* Gold Underline (Active Indicator) */}
                 <div
                   className={`h-[3px] rounded-full transition-all duration-500 mt-3 ${

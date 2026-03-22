@@ -1,4 +1,4 @@
-import ShowMovies from "./ShowContent";
+import ShowContent from "./ShowContent";
 
 export default function HomeContent({
   movies,
@@ -15,10 +15,10 @@ export default function HomeContent({
 }) {
   return (
     <main className="flex min-h-screen w-full flex-col">
-      <ShowMovies movies={movies} title="Recently Added" type={type} />
-      <ShowMovies movies={arMovies} title={`Arabic ${type}`} type={type} />
-      <ShowMovies movies={turkeyMovies} title={`Turkey ${type}`} type={type} />
-      <ShowMovies movies={indiaMovies} title={`India ${type}`} type={type} />
+      <ShowContent movies={movies} title="Recently Added" type={type} />
+      <ShowContent movies={arMovies} title={`Arabic ${type}`} type={type} />
+      <ShowContent movies={turkeyMovies} title={`Turkey ${type}`} type={type} />
+      <ShowContent movies={indiaMovies} title={`India ${type}`} type={type} />
     </main>
   );
 }

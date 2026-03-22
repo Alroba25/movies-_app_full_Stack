@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import Link from "next/link";
 import { useState, useRef } from "react";
 
-export default function ShowMovies({
+export default function ShowContent({
   movies,
   title,
   type = "movies",
@@ -63,7 +63,10 @@ export default function ShowMovies({
         `}
         aria-label="Scroll left"
       >
-        <ChevronLeft size={40} className="drop-shadow-[0_0_10px_rgba(0,0,0,0.8)] transform transition-transform hover:scale-125" />
+        <ChevronLeft
+          size={40}
+          className="drop-shadow-[0_0_10px_rgba(0,0,0,0.8)] transform transition-transform hover:scale-125"
+        />
       </button>
 
       {/* Cards */}
@@ -77,7 +80,10 @@ export default function ShowMovies({
             key={movie.id}
             className="group/card relative shrink-0 w-[160px] h-[240px] md:w-[220px] md:h-[330px] bg-[#12121A] rounded-xl overflow-visible cursor-pointer snap-start transition-all duration-500 hover:z-30 hover:-translate-y-4 shadow-lg hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.8)] ring-1 ring-white/5 hover:ring-[#FFD700]/30"
           >
-            <Link href={`/${type}/${movie.id}`} className="block w-full h-full relative rounded-xl overflow-hidden">
+            <Link
+              href={`/${type}/${movie.id}`}
+              className="block w-full h-full relative rounded-xl overflow-hidden"
+            >
               <img
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 alt={movie.title || movie.name || "Movie poster"}
@@ -130,7 +136,10 @@ export default function ShowMovies({
         `}
         aria-label="Scroll right"
       >
-        <ChevronRight size={40} className="drop-shadow-[0_0_10px_rgba(0,0,0,0.8)] transform transition-transform hover:scale-125" />
+        <ChevronRight
+          size={40}
+          className="drop-shadow-[0_0_10px_rgba(0,0,0,0.8)] transform transition-transform hover:scale-125"
+        />
       </button>
     </div>
   );

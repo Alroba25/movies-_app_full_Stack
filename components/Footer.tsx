@@ -4,7 +4,6 @@ export default function Footer() {
   const links = [
     { name: "Home", url: "/" },
     { name: "Movies", url: "/movies" },
-    { name: "TV Shows", url: "/tv-shows" },
     { name: "Contact", url: "/contact" },
     { name: "Privacy Policy", url: "/privacy-policy" },
     { name: "Terms of Service", url: "/terms-of-service" },
