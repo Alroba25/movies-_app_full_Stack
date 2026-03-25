@@ -49,21 +49,22 @@ export default function HeroSlider({
           className={`absolute inset-0 transition-all duration-700 ease-in-out transform z-0 ${
             isAnimating
               ? "blur-2xl scale-110 opacity-30"
-              : "blur-0 scale-105 opacity-100"
+              : "blur-0 scale-100 opacity-100"
           }`}
         >
           <Image
-            src={`https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`}
+            src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
             alt={movie.title || movie.name || "Hero background"}
             fill
             priority
-            className="object-cover object-top"
+            quality={100}
+            className="object-cover"
             sizes="100vw"
           />
         </div>
 
         {/* Cinematic Gradient Overlays */}
-        <div className="absolute inset-y-0 left-0 w-full md:w-[75%] lg:w-[65%] bg-linear-to-r from-[#0B0B0F] via-[#0B0B0F]/80 to-transparent z-10" />
+        <div className="absolute inset-y-0 left-0 w-[80%] md:w-[75%] lg:w-[65%] bg-linear-to-r from-[#0B0B0F] via-[#0B0B0F]/70 to-transparent z-10" />
         <div className="absolute inset-x-0 bottom-0 h-[40%] bg-linear-to-t from-[#0B0B0F] via-[#0B0B0F]/60 to-transparent z-10" />
         <div className="absolute inset-0 bg-black/20 z-10 mix-blend-overlay" />
 

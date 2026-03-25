@@ -4,11 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Search, Star, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { UserButton, useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import SearchHandel from "./SearchHandel";
 import { useState, useEffect } from "react";
 
 export default function Navbar({ activePage }: { activePage?: string }) {
   const { userId, isLoaded } = useAuth();
+  const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -74,7 +76,9 @@ export default function Navbar({ activePage }: { activePage?: string }) {
       </div>
 
       <div className="flex gap-3 sm:gap-6 items-center">
-        <SearchHandel />
+        <div className="hidden lg:block">
+          <SearchHandel />
+        </div>
 
         {isLoaded && userId ? (
           <div className="hover:scale-110 transition-transform duration-300 cursor-pointer drop-shadow-xl border-2 border-[#FFD700] rounded-full overflow-hidden flex items-center justify-center bg-black/50 backdrop-blur-sm shadow-[0_0_15px_rgba(255,215,0,0.3)] gap-3 shrink-0">
@@ -122,6 +126,29 @@ export default function Navbar({ activePage }: { activePage?: string }) {
             : "max-h-0 opacity-0 py-0"
         }`}
       >
+        <div className="px-6 mb-8">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              const query = (
+                e.currentTarget.elements.namedItem("search") as HTMLInputElement
+              ).value;
+              if (query.trim()) {
+                router.push(`/search?query=${encodeURIComponent(query)}`);
+                setIsMobileMenuOpen(false);
+              }
+            }}
+            className="relative"
+          >
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#FFD700] w-5 h-5" />
+            <input
+              name="search"
+              type="text"
+              placeholder="Search movies..."
+              className="w-full bg-white/5 border border-white/10 rounded-full py-3 pl-12 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-[#FFD700]/50 transition-all placeholder:text-white/40"
+            />
+          </form>
+        </div>
         <ul className="flex flex-col items-center gap-6 text-xl font-semibold">
           {navLinks.map((link) => (
             <li

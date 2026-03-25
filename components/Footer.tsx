@@ -5,8 +5,8 @@ export default function Footer() {
     { name: "Home", url: "/" },
     { name: "Movies", url: "/movies" },
     { name: "Contact", url: "/contact" },
-    { name: "Privacy Policy", url: "/privacy-policy" },
-    { name: "Terms of Service", url: "/terms-of-service" },
+    { name: "Privacy Policy", url: "/privacy" },
+    { name: "Terms of Service", url: "/terms" },
   ];
 
   return (

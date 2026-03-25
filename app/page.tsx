@@ -15,7 +15,6 @@ export default async function Home() {
   const trendingMovies = await getTrendingMovies();
   const trendingSeries = await getTrendingSeries();
   const top10Movies = trendingMovies.slice(0, 10);
-console.log(trendingSeries);
   return (
     <div>
       <Navbar />
