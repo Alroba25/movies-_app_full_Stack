@@ -28,7 +28,7 @@ export default async function MyListPage() {
   return (
     <div className="min-h-screen bg-[#0B0B0F] text-white flex flex-col font-sans selection:bg-[#FFD700]/30 relative">
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-[#1A1A24] via-[#0B0B0F] to-[#0B0B0F] -z-10" />
-      <Navbar activePage="mylist" />
+      <Navbar activePage="myList" />
       
       <main className="grow pt-28 pb-20 px-4 sm:px-6 lg:px-12 xl:px-20 max-w-[1600px] w-full mx-auto relative z-10">
         <div className="mb-10 md:mb-14">

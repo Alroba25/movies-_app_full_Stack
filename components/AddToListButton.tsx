@@ -12,7 +12,7 @@ export default function AddToListButton({
   children,
 }: {
   movieId: number;
-  mediaType?: "movies" | "series";
+  mediaType?: "movies" | "series" | "kids";
   children?: React.ReactNode;
 }) {
   const [isPending, startTransition] = useTransition();

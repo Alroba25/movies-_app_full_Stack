@@ -30,8 +30,8 @@ export default function Navbar({ activePage }: { activePage?: string }) {
   const navLinks = [
     { name: "Movies", href: "/movies", id: "movies" },
     { name: "Series", href: "/series", id: "series" },
-    { name: "My List", href: "/myList", id: "myList" },
     { name: "Kids", href: "/kids", id: "kids" },
+    { name: "My List", href: "/myList", id: "myList" },
   ];
 
   return (
@@ -76,7 +76,7 @@ export default function Navbar({ activePage }: { activePage?: string }) {
       <div className="flex gap-3 sm:gap-6 items-center">
         <SearchHandel />
 
-        {isLoaded && userId && (
+        {isLoaded && userId ? (
           <div className="hover:scale-110 transition-transform duration-300 cursor-pointer drop-shadow-xl border-2 border-[#FFD700] rounded-full overflow-hidden flex items-center justify-center bg-black/50 backdrop-blur-sm shadow-[0_0_15px_rgba(255,215,0,0.3)] gap-3 shrink-0">
             <UserButton
               appearance={{
@@ -87,6 +87,22 @@ export default function Navbar({ activePage }: { activePage?: string }) {
               }}
             />
           </div>
+        ) : (
+          isLoaded && (
+            <div className="flex items-center gap-3 sm:gap-5">
+              <Link
+                href="/sign-in"
+                className="text-white hover:text-[#FFD700] font-semibold transition-all duration-300 hidden sm:block"
+              >
+                Log In
+              </Link>
+              <Link href="/sign-up">
+                <Button className="cursor-pointer font-bold border border-[#E50914]/40 text-white bg-[#E50914] rounded-full hover:bg-red-700 transition-all hover:scale-105 shadow-[0_0_15px_rgba(229,9,20,0.2)] px-4 sm:px-6 py-1.5 sm:py-2 text-sm sm:text-base backdrop-blur-sm">
+                  Join Now
+                </Button>
+              </Link>
+            </div>
+          )
         )}
 
         {/* Mobile Menu Toggle */}
@@ -101,7 +117,9 @@ export default function Navbar({ activePage }: { activePage?: string }) {
       {/* Mobile Menu Dropdown */}
       <div
         className={`fixed top-[72px] left-0 w-full bg-[#0B0B0F]/98 backdrop-blur-xl transition-all duration-500 ease-in-out border-b border-white/10 lg:hidden overflow-hidden ${
-          isMobileMenuOpen ? "max-h-screen opacity-100 py-8" : "max-h-0 opacity-0 py-0"
+          isMobileMenuOpen
+            ? "max-h-screen opacity-100 py-8"
+            : "max-h-0 opacity-0 py-0"
         }`}
       >
         <ul className="flex flex-col items-center gap-6 text-xl font-semibold">

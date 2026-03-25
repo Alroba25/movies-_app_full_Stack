@@ -14,7 +14,7 @@ import Image from "next/image";
 export default function HomeHero({ movie }: { movie: any }) {
   // Use a fallback TMDB backdrop or the generated one
   const bgImage = movie?.backdrop_path
-    ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+    ? `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`
     : "/Images/hero_fallback.jpg"; // fallback layout
 
   const features = [

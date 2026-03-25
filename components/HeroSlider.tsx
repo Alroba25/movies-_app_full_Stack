@@ -14,7 +14,7 @@ export default function HeroSlider({
   type,
 }: {
   movies: any[];
-  type: "movies" | "series";
+  type: "movies" | "series" | "kids";
 }) {
   const [index, setIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -53,7 +53,7 @@ export default function HeroSlider({
           }`}
         >
           <Image
-            src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+            src={`https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`}
             alt={movie.title || movie.name || "Hero background"}
             fill
             priority
