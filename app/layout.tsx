@@ -6,6 +6,7 @@ import {
   Show,
   UserButton,
 } from "@clerk/nextjs";
+import { Toaster } from "react-hot-toast";
 
 const bebasNeue = Bebas_Neue({
   variable: "--font-bebas-neue",
@@ -42,6 +43,16 @@ export default function RootLayout({
             </div>
           </header>
           {children}
+          <Toaster
+            position="bottom-right"
+            toastOptions={{
+              style: {
+                background: "#1A1D24",
+                color: "#fff",
+                border: "1px solid rgba(255,255,255,0.1)",
+              },
+            }}
+          />
         </ClerkProvider>
       </body>
     </html>

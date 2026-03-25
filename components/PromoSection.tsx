@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 export default function PromoSection({ movies }: { movies: any[] }) {
@@ -81,10 +82,12 @@ export default function PromoSection({ movies }: { movies: any[] }) {
               key={idx}
               className="relative shrink-0 w-[260px] h-[150px] md:w-[320px] md:h-[180px] rounded-lg overflow-hidden group border border-white/10 hover:border-[#E50914]/50 transition-colors shadow-lg"
             >
-              <img
+              <Image
                 src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path || movie.poster_path}`}
-                alt={movie.title}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                alt={movie.title || "Movie backdrop"}
+                fill
+                sizes="(max-width: 768px) 260px, 320px"
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                 <h3 className="text-white font-bold text-sm md:text-base drop-shadow-md">

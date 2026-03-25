@@ -9,6 +9,7 @@ import {
   Baby,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function HomeHero({ movie }: { movie: any }) {
   // Use a fallback TMDB backdrop or the generated one
@@ -46,10 +47,16 @@ export default function HomeHero({ movie }: { movie: any }) {
   return (
     <div className="relative w-full h-[90vh] min-h-[600px] flex flex-col items-center justify-between overflow-hidden bg-[#0B0B0F] text-white pt-20 pb-8">
       {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 ease-in-out hover:scale-105"
-        style={{ backgroundImage: `url(${bgImage})` }}
-      />
+      <div className="absolute inset-0 z-0 transition-transform duration-700 ease-in-out hover:scale-105">
+        <Image
+          src={bgImage}
+          alt={movie?.title || "Hero background"}
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+      </div>
 
       {/* Gradient Overlay to ensure text readability */}
       <div className="absolute inset-0 bg-black/40" />

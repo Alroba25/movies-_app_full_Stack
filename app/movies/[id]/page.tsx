@@ -1,8 +1,11 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { Button } from "@/components/ui/button";
+import { addToMyList } from "@/lib/actions/mylistActions";
 import { getMovieById } from "@/lib/tmdb.actions";
 import { Star, Clock, Calendar, Play, Info } from "lucide-react";
 import Link from "next/link";
+import AddToListButton from "@/components/AddToListButton";
 
 export default async function MoviePage({
   params,
@@ -11,7 +14,6 @@ export default async function MoviePage({
 }) {
   const resolvedParams = await params;
   const movie = await getMovieById(Number(resolvedParams.id));
-
   // If no movie is found
   if (!movie || !movie.title) {
     return (
@@ -158,6 +160,7 @@ export default async function MoviePage({
                   >
                     Back to Movies
                   </Link>
+                  <AddToListButton movieId={movie.id} mediaType="movies" />
                 </div>
               </div>
             </div>

@@ -4,6 +4,10 @@ import { useEffect, useState } from "react";
 import { Play, Plus } from "lucide-react";
 import { Button } from "./ui/button";
 import { truncateText } from "@/lib/utils";
+import AddToListButton from "./AddToListButton";
+import Link from "next/link";
+
+import Image from "next/image";
 
 export default function HeroSlider({
   movies,
@@ -42,15 +46,21 @@ export default function HeroSlider({
       <div className="relative h-[90vh] md:h-screen w-full overflow-hidden flex flex-col justify-center bg-[#0B0B0F]">
         {/* Background Image with motion */}
         <div
-          className={`absolute inset-0 bg-cover bg-top transition-all duration-700 ease-in-out transform ${
+          className={`absolute inset-0 transition-all duration-700 ease-in-out transform z-0 ${
             isAnimating
               ? "blur-2xl scale-110 opacity-30"
               : "blur-0 scale-105 opacity-100"
           }`}
-          style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
-          }}
-        />
+        >
+          <Image
+            src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+            alt={movie.title || movie.name || "Hero background"}
+            fill
+            priority
+            className="object-cover object-top"
+            sizes="100vw"
+          />
+        </div>
 
         {/* Cinematic Gradient Overlays */}
         <div className="absolute inset-y-0 left-0 w-full md:w-[75%] lg:w-[65%] bg-linear-to-r from-[#0B0B0F] via-[#0B0B0F]/80 to-transparent z-10" />
@@ -95,20 +105,20 @@ export default function HeroSlider({
 
             {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-4 mt-auto sm:mt-0 font-sans">
-              <Button
-                size={"xl"}
-                className="cursor-pointer flex items-center space-x-3 bg-[#E50914] hover:bg-red-700 text-white px-6 sm:px-8 py-4 sm:py-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-[0_0_25px_rgba(229,9,20,0.5)] border border-transparent text-sm md:text-base font-bold tracking-wide"
-              >
-                <Play className="w-5 h-5 fill-current" />
-                <span>Watch Now</span>
-              </Button>
-              <Button
-                size={"xl"}
-                className="cursor-pointer flex items-center space-x-3 bg-white/5 border border-white/20 hover:border-white hover:bg-white/10 text-white px-6 sm:px-8 py-4 sm:py-6 rounded-full transition-all duration-300 transform hover:scale-105 backdrop-blur-md text-sm md:text-base font-semibold tracking-wide"
-              >
-                <Plus className="w-5 h-5" />
-                <span>My List</span>
-              </Button>
+              <Link href={`/${type}/${movie.id}`}>
+                <Button
+                  size={"xl"}
+                  className="cursor-pointer flex items-center space-x-3 bg-[#E50914] hover:bg-red-700 text-white px-6 sm:px-8 py-4 sm:py-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-[0_0_25px_rgba(229,9,20,0.5)] border border-transparent text-sm md:text-base font-bold tracking-wide"
+                >
+                  <Play className="w-5 h-5 fill-current" />
+                  <span>Watch Now</span>
+                </Button>
+              </Link>
+              <AddToListButton movieId={movie.id} mediaType={type}>
+                <span className="w-full text-sm md:text-base font-semibold tracking-wide">
+                  Add to List
+                </span>
+              </AddToListButton>
             </div>
           </div>
         </div>
@@ -153,10 +163,12 @@ export default function HeroSlider({
               >
                 <div className="w-24 md:w-32 lg:w-44 h-[60px] md:h-[70px] lg:h-[80px] rounded-lg overflow-hidden relative border border-white/10 group-hover:border-[#FFD700]/50 transition-colors">
                   <div className="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition-colors z-10" />
-                  <img
+                  <Image
                     src={`https://image.tmdb.org/t/p/w200${m.backdrop_path || m.poster_path}`}
                     alt="thumbnail"
-                    className="w-full h-full object-cover"
+                    fill
+                    sizes="(max-width: 768px) 100px, 180px"
+                    className="object-cover"
                   />
 
                   {/* Thumb title overlay */}

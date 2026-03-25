@@ -7,11 +7,19 @@ datasource db {
  url      = env("DATABASE_URL")
 }
 
-model Movie {
+model movie {
  id          String   @id @default(auto()) @map("_id") @db.ObjectId
  title       String
  description String
  poster      String
  rating      Float
  createdAt   DateTime @default(now())
+}
+
+model myList {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String
+  movieId   Int
+  mediaType String   @default("movie")
+  createdAt DateTime @default(now())
 }

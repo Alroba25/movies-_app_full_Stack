@@ -1,10 +1,25 @@
+"use client";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Search, Star } from "lucide-react";
+import { Search, Star, Menu, X } from "lucide-react";
 import Link from "next/link";
-import { Show, UserButton } from "@clerk/nextjs";
+import { UserButton, useAuth } from "@clerk/nextjs";
+import SearchHandel from "./SearchHandel";
+import { useState, useEffect } from "react";
 
 export default function Navbar({ activePage }: { activePage?: string }) {
+  const { userId, isLoaded } = useAuth();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const linkClass = (page: string) =>
     `hover:text-[#FFD700] hover:drop-shadow-[0_0_8px_rgba(255,215,0,0.5)] transition-all duration-300 cursor-pointer ${
       activePage === page
@@ -12,41 +27,45 @@ export default function Navbar({ activePage }: { activePage?: string }) {
         : "text-[#B3B3B3]"
     }`;
 
+  const navLinks = [
+    { name: "Movies", href: "/movies", id: "movies" },
+    { name: "Series", href: "/series", id: "series" },
+    { name: "My List", href: "/myList", id: "myList" },
+    { name: "Kids", href: "/kids", id: "kids" },
+  ];
+
   return (
-    <nav className="flex items-center justify-between w-full bg-linear-to-b from-[#0B0B0F]/95 via-[#0B0B0F]/50 to-transparent py-5 px-6 sm:px-10 absolute top-0 left-0 z-50 transition-all duration-500 pointer-events-none">
-      <div className="flex items-center gap-10 pointer-events-auto">
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 py-4 px-6 sm:px-10 flex items-center justify-between ${
+        isScrolled
+          ? "bg-[#0B0B0F]/95 backdrop-blur-md shadow-2xl py-3"
+          : "bg-linear-to-b from-[#0B0B0F]/90 via-[#0B0B0F]/40 to-transparent"
+      }`}
+    >
+      <div className="flex items-center gap-10">
         <Link
           href="/"
-          className="hover:scale-105 transition-transform duration-300 drop-shadow-xl"
+          className="hover:scale-105 transition-transform duration-300 drop-shadow-xl shrink-0"
         >
           <Image
-            className="cursor-pointer"
+            className="cursor-pointer transition-all duration-300"
             src="/Images/logo.svg"
             alt="Logo"
-            width={120}
-            height={120}
+            width={isScrolled ? 100 : 120}
+            height={isScrolled ? 100 : 120}
           />
         </Link>
 
-        <ul
-          className="hidden lg:flex items-center gap-8 font-medium text-lg tracking-wide"
-          style={{ letterSpacing: "1px" }}
-        >
-          <li className={linkClass("movies")}>
-            <Link href="/movies">Movies</Link>
-          </li>
-          <li className={linkClass("series")}>
-            <Link href="/series">Series</Link>
-          </li>
-          <li className={linkClass("kids")}>
-            <Link href="/kids">Kids</Link>
-          </li>
-          <li className={linkClass("my_list")}>
-            <Link href="/my_list">My List</Link>
-          </li>
+        {/* Desktop Links */}
+        <ul className="hidden lg:flex items-center gap-8 font-medium text-lg tracking-wide">
+          {navLinks.map((link) => (
+            <li key={link.id} className={linkClass(link.id)}>
+              <Link href={link.href}>{link.name}</Link>
+            </li>
+          ))}
 
           <li>
-            <Button className=" cursor-pointer font-bold border border-[#FFD700]/40 text-[#FFD700] bg-[#FFD700]/5 rounded-full hover:bg-[#FFD700] hover:text-[#0B0B0F] transition-all hover:scale-105 shadow-[0_0_15px_rgba(255,215,0,0.1)] hover:shadow-[0_0_20px_rgba(255,215,0,0.4)] px-5 backdrop-blur-sm">
+            <Button className="cursor-pointer font-bold border border-[#FFD700]/40 text-[#FFD700] bg-[#FFD700]/5 rounded-full hover:bg-[#FFD700] hover:text-[#0B0B0F] transition-all hover:scale-105 shadow-[0_0_15px_rgba(255,215,0,0.1)] hover:shadow-[0_0_20px_rgba(255,215,0,0.4)] px-5 backdrop-blur-sm">
               Premium
               <Star className="ml-2 w-4 h-4" />
             </Button>
@@ -54,20 +73,54 @@ export default function Navbar({ activePage }: { activePage?: string }) {
         </ul>
       </div>
 
-      <div className="flex gap-4 items-center pointer-events-auto">
-        <Search className="text-white w-5 h-5 cursor-pointer hover:text-[#FFD700] hover:drop-shadow-[0_0_8px_rgba(255,215,0,0.8)] transition-all hover:scale-110 duration-300" />
-        <Show when="signed-in">
-          <div className="hover:scale-110 transition-transform duration-300 cursor-pointer drop-shadow-xl border-2 border-[#FFD700] rounded-full overflow-hidden flex items-center justify-center bg-black/50 backdrop-blur-sm shadow-[0_0_15px_rgba(255,215,0,0.3)] gap-3">
+      <div className="flex gap-3 sm:gap-6 items-center">
+        <SearchHandel />
+
+        {isLoaded && userId && (
+          <div className="hover:scale-110 transition-transform duration-300 cursor-pointer drop-shadow-xl border-2 border-[#FFD700] rounded-full overflow-hidden flex items-center justify-center bg-black/50 backdrop-blur-sm shadow-[0_0_15px_rgba(255,215,0,0.3)] gap-3 shrink-0">
             <UserButton
               appearance={{
                 elements: {
                   userButtonAvatarBox:
-                    "w-9 h-9 sm:w-10 sm:h-10 border-none shadow-none",
+                    "w-8 h-8 sm:w-10 sm:h-10 border-none shadow-none",
                 },
               }}
             />
           </div>
-        </Show>
+        )}
+
+        {/* Mobile Menu Toggle */}
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="lg:hidden text-white hover:text-[#FFD700] transition-colors p-1"
+        >
+          {isMobileMenuOpen ? <X size={30} /> : <Menu size={30} />}
+        </button>
+      </div>
+
+      {/* Mobile Menu Dropdown */}
+      <div
+        className={`fixed top-[72px] left-0 w-full bg-[#0B0B0F]/98 backdrop-blur-xl transition-all duration-500 ease-in-out border-b border-white/10 lg:hidden overflow-hidden ${
+          isMobileMenuOpen ? "max-h-screen opacity-100 py-8" : "max-h-0 opacity-0 py-0"
+        }`}
+      >
+        <ul className="flex flex-col items-center gap-6 text-xl font-semibold">
+          {navLinks.map((link) => (
+            <li
+              key={link.id}
+              className={`${linkClass(link.id)} text-2xl py-2`}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <Link href={link.href}>{link.name}</Link>
+            </li>
+          ))}
+          <li className="pt-4">
+            <Button className="w-48 h-12 text-lg cursor-pointer font-bold border border-[#FFD700]/40 text-[#FFD700] bg-[#FFD700]/5 rounded-full hover:bg-[#FFD700] hover:text-[#0B0B0F] transition-all hover:scale-105 shadow-[0_0_15px_rgba(255,215,0,0.1)] px-5 backdrop-blur-sm">
+              Premium
+              <Star className="ml-2 w-5 h-5" />
+            </Button>
+          </li>
+        </ul>
       </div>
     </nav>
   );

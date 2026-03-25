@@ -1,8 +1,11 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { Button } from "@/components/ui/button";
+import { addToMyList } from "@/lib/actions/mylistActions";
 import { getSeriesById } from "@/lib/tmdb.actions";
 import { Star, Clock, Calendar, Play, Info } from "lucide-react";
 import Link from "next/link";
+import AddToListButton from "@/components/AddToListButton";
 
 export default async function SeriesPage({
   params,
@@ -159,6 +162,7 @@ export default async function SeriesPage({
                   >
                     Back to Series
                   </Link>
+                  <AddToListButton movieId={series.id} mediaType="series" />
                 </div>
               </div>
             </div>

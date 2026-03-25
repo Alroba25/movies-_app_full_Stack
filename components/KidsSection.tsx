@@ -1,4 +1,4 @@
-import React from "react";
+import Image from "next/image";
 
 export default function KidsSection() {
   return (
@@ -15,11 +15,13 @@ export default function KidsSection() {
         </p>
 
         {/* Kids Movies Image Cluster */}
-        <div className="w-full max-w-[1400px] mx-auto flex justify-center items-end mt-4">
-          <img
+        <div className="w-full max-w-[1400px] mx-auto flex justify-center items-end mt-4 relative h-[450px] md:h-[600px]">
+          <Image
             src="/Images/HomeKids.png"
             alt="Kids Movies and Shows"
-            className="w-full h-auto object-contain object-bottom max-h-[450px] md:max-h-[600px]"
+            fill
+            className="object-contain object-bottom"
+            sizes="(max-width: 1400px) 100vw, 1400px"
           />
         </div>
       </div>
