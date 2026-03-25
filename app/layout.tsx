@@ -3,8 +3,6 @@ import { Bebas_Neue, Inter } from "next/font/google";
 import "./globals.css";
 import {
   ClerkProvider,
-  Show,
-  UserButton,
 } from "@clerk/nextjs";
 import { Toaster } from "react-hot-toast";
 
