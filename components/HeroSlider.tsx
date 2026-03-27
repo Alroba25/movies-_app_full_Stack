@@ -108,7 +108,7 @@ export default function HeroSlider({
             <div className="flex flex-wrap items-center gap-4 mt-auto sm:mt-0 font-sans">
               <Link href={`/${type}/${movie.id}`}>
                 <Button
-                  size={"xl"}
+                  size={"lg"}
                   className="cursor-pointer flex items-center space-x-3 bg-[#E50914] hover:bg-red-700 text-white px-6 sm:px-8 py-4 sm:py-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-[0_0_25px_rgba(229,9,20,0.5)] border border-transparent text-sm md:text-base font-bold tracking-wide"
                 >
                   <Play className="w-5 h-5 fill-current" />
