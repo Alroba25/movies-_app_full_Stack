@@ -1,3 +1,4 @@
+// Movies
 export async function getTrendingMovies() {
   const res = await fetch(
     `https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.TMDB_API_KEY}`,
@@ -59,6 +60,7 @@ export async function getSeriesById(id: number) {
 
   return data;
 }
+// Search
 export async function searchMovies(query: string) {
   if (!query) return [];
 
@@ -71,6 +73,7 @@ export async function searchMovies(query: string) {
 
   return data.results;
 }
+// Kids
 export async function getKidsMovies() {
   const res = await fetch(
     `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.TMDB_API_KEY}&with_genres=16&certification_country=US&certification.lte=G`,
@@ -130,4 +133,25 @@ export async function getKidsMovieById(id: number) {
     console.error("Error fetching kids series:", error);
     return null;
   }
+}
+// People
+export async function getPeople(page: number = 1) {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/person/popular?api_key=${process.env.TMDB_API_KEY}&page=${page}`,
+    { next: { revalidate: 3600 } },
+  );
+
+  const data = await res.json();
+
+  return data;
+}
+export async function getPeopleById(id: number) {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/person/${id}?api_key=${process.env.TMDB_API_KEY}&append_to_response=combined_credits,external_ids,images`,
+    { next: { revalidate: 3600 } },
+  );
+
+  const data = await res.json();
+
+  return data;
 }

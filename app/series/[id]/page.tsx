@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { addToMyList } from "@/lib/actions/mylistActions";
 import { getSeriesById } from "@/lib/tmdb.actions";
-import { Star, Clock, Calendar, Play, Info } from "lucide-react";
+import { Star, Clock, Calendar, Play, Info, ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import AddToListButton from "@/components/AddToListButton";
 
@@ -37,6 +37,18 @@ export default async function SeriesPage({
       <Navbar />
 
       <main className="grow pt-16">
+        {/* Back Button */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <Link
+            href="/series"
+            className="inline-flex items-center gap-2 text-white/40 hover:text-[#FFD700] transition-colors group"
+          >
+            <ChevronLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
+            <span className="text-sm font-bold uppercase tracking-widest">
+              Back to Series
+            </span>
+          </Link>
+        </div>
         {/* HERO SECTION */}
         <div className="relative w-full min-h-[75vh] md:min-h-[85vh] flex items-center justify-center overflow-hidden">
           {/* Background Image with Gradients */}

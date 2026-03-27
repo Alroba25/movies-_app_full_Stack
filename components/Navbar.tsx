@@ -33,6 +33,7 @@ export default function Navbar({ activePage }: { activePage?: string }) {
     { name: "Movies", href: "/movies", id: "movies" },
     { name: "Series", href: "/series", id: "series" },
     { name: "Kids", href: "/kids", id: "kids" },
+    { name: "People", href: "/people", id: "people" },
     { name: "My List", href: "/myList", id: "myList" },
   ];
 
